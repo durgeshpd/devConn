@@ -8,7 +8,7 @@ It provides a minimal yet powerful setup for building communication and collabor
 
 ## 🔗 Live Project
 
-➡️ [Visit iTask](http://51.21.190.33/devconn/)
+➡️ [Visit devConn](http://51.21.190.33/devconn/)
 
 This will take you directly to the login page of the deployed devConn platform.
 
