@@ -27,7 +27,7 @@ This will take you directly to the login page of the deployed devConn platform.
 
 ## 📁 Project Structure
 
-iTask/
+devConn/
 ├── devConn-backend/ # Node.js + Express backend
 ├── devConn-frontend/ # React + Vite frontend
 └── README.md # Project overview
