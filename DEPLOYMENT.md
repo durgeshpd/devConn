@@ -1,6 +1,8 @@
 🚀 Deployment Guide – devConn
 This guide walks you through deploying the devConn full-stack app, which includes a Node.js backend and a React frontend, using PM2 and Nginx on a Linux server.
 
+---
+
 🔁 Clone the Project
 ```bash
 ~ git clone https://github.com/durgeshpd/devConn.git
@@ -18,6 +20,8 @@ Create a .env file:
 ~ nano .env
 ```
 
+```bash
+
 Add the following contents:
 
 # MongoDB connection URI
@@ -29,6 +33,8 @@ PORT=5000
 # JWT secret key
 JWT_SECRET=your_jwt_secret_here
 ⚠️ Replace placeholders (<username>, <password>, etc.) with actual values.
+
+```
 
 Install dependencies:
 ```bash
