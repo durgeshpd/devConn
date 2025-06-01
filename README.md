@@ -58,7 +58,7 @@ Start the server:
 3. Frontend Setup (devConn-frontend) 
 ~ cd ../devConn-frontend
 ~ npm install
-` npm run dev
+~ npm run dev
 
 This will start the React app on http://localhost:5173 (or similar).
 
