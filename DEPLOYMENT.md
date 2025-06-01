@@ -10,12 +10,12 @@ This guide walks you through deploying the devConn full-stack app, which include
 🛠️ Backend Setup
 Navigate to the backend folder:
 ```bash
-cd devConn-backend/
+~ cd devConn-backend/
 ```
 
 Create a .env file:
 ```bash
-nano .env
+~ nano .env
 ```
 
 Add the following contents:
