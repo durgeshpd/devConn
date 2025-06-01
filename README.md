@@ -44,27 +44,22 @@ devConn/
 ~ cd devConn
 
 2. Backend Setup (devConn-backend)
-~cd devConn-backend
+~ cd devConn-backend
 ~ npm install
 
 Create a .env file:
-
 MONGO_URI=your_mongodb_uri
 PORT=3000
 JWT_SECRET=your_jwt_secret
 
 Start the server:
-
 ~ npm start
 
-3. Frontend Setup (devConn-frontend)
- 
+3. Frontend Setup (devConn-frontend) 
  ~ cd ../devConn-frontend
 ~ npm install
 ` npm run dev
-
 This will start the React app on http://localhost:5173 (or similar).
-
 ```
 
 📬 Contact
