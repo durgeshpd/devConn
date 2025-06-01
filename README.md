@@ -40,13 +40,12 @@ devConn/
 1. Clone the Repo
 
 ```bash
-git clone <your-repo-url>
-cd devConn
+~ git clone https://github.com/durgeshpd/devConn.git
+~ cd devConn
 
 2. Backend Setup (devConn-backend)
-
-cd devConn-backend
-npm install
+~cd devConn-backend
+~ npm install
 
 Create a .env file:
 
@@ -56,16 +55,17 @@ JWT_SECRET=your_jwt_secret
 
 Start the server:
 
-npm start
+~ npm start
 
 3. Frontend Setup (devConn-frontend)
  
-cd ../devConn-frontend
-npm install
-npm run dev
+ ~ cd ../devConn-frontend
+~ npm install
+` npm run dev
 
 This will start the React app on http://localhost:5173 (or similar).
 
+```
 
 📬 Contact
 Feel free to open an issue or submit a pull request if you have ideas or improvements.
