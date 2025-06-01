@@ -1,38 +1,125 @@
-git clone https://github.com/durgeshpd/devConn.git
+🚀 Deployment Guide – devConn
+This guide walks you through deploying the devConn full-stack app, which includes a Node.js backend and a React frontend, using PM2 and Nginx on a Linux server.
 
-cd devConn/
+🔁 Clone the Project
+```bash
+~ git clone https://github.com/durgeshpd/devConn.git
+~ cd devConn/
+```
 
-cd ~/devConn/devConn-backend
+🛠️ Backend Setup
+Navigate to the backend folder:
+```bash
+cd devConn-backend/
+```
 
+Create a .env file:
+```bash
 nano .env
+```
+
+Add the following contents:
 
 # MongoDB connection URI
-MONGO_URI=your_mongodb_connection_string_here/dbname?retryWrites=true&w=majority
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/dbname?retryWrites=true&w=majority
 
 # Server port
 PORT=5000
 
 # JWT secret key
 JWT_SECRET=your_jwt_secret_here
+⚠️ Replace placeholders (<username>, <password>, etc.) with actual values.
 
-npm install
+Install dependencies:
+```bash
+~ npm install
+```
 
-pm2 start src/server.js --name devconn-backend
+Start the backend with PM2:
+```bash
+~ pm2 start src/server.js --name devconn-backend
+```
 
-Deploy frontend
+Optional: Save PM2 process list and enable startup script:
+```bash
+~ pm2 save
+~ pm2 startup
+```
 
-cd ~/devConn/devConn-frontend
+🌐 Frontend Setup
+Navigate to the frontend folder:
+```bash
+~ cd ../devConn-frontend/
+```
 
-npm install
+Install dependencies and build the project:
+```bash
+~ npm install
+~ npm run build
+```
 
-npm run build
+Copy the build to Nginx’s default web directory:
+```bash
+~ sudo mkdir -p /var/www/html
+~ sudo cp -r dist/* /var/www/html
+```
 
-sudo mkdir -p /var/www/html
+⚙️ Nginx Configuration
+Edit the default site config:
 
-sudo cp -r dist/* /var/www/html
+```bash
+~ sudo nano /etc/nginx/sites-available/default
+```
 
-sudo nano /etc/nginx/sites-available/default
+Update or ensure the config looks like:
 
-sudo nginx -t
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-sudo systemctl reload nginx
+    root /var/www/html;
+    index index.html index.htm;
+
+    server_name _;
+
+    location / {
+        try_files $uri /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://localhost:5000/;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+Test Nginx configuration:
+```bash
+~ sudo nginx -t
+```
+
+Reload Nginx:
+```bash
+~ sudo systemctl reload nginx
+```
+
+✅ Done!
+
+Your app should now be accessible in the browser at your server’s IP or domain.
+
+🧪 Troubleshooting
+Check backend logs:
+```bash
+~ pm2 logs devconn-backend
+```
+
+Restart PM2 app:
+```bash
+~ pm2 restart devconn-backend
+```
+
+View frontend build:
+Open your server IP in a browser, e.g., http://your-server-ip
