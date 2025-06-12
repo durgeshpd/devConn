@@ -27,12 +27,12 @@ This will take you directly to the login page of the deployed devConn platform.
 
 ## 📁 Project Structure
 
+```css
 devConn/
 ├── devConn-backend/ # Node.js + Express backend
 ├── devConn-frontend/ # React + Vite frontend
 └── README.md # Project overview
-
-
+```
 ---
 
 ## ⚙️ Getting Started
@@ -40,12 +40,12 @@ devConn/
 1. Clone the Repo
 
 ```bash
-~ git clone https://github.com/durgeshpd/devConn.git
-~ cd devConn
+git clone https://github.com/durgeshpd/devConn.git
+cd devConn
 
 2. Backend Setup (devConn-backend)
-~ cd devConn-backend
-~ npm install
+cd devConn-backend
+npm install
 
 Create a .env file:
 MONGO_URI=your_mongodb_uri
@@ -53,18 +53,21 @@ PORT=3000
 JWT_SECRET=your_jwt_secret
 
 Start the server:
-~ npm start
+npm start
 
 3. Frontend Setup (devConn-frontend) 
-~ cd ../devConn-frontend
-~ npm install
-~ npm run dev
-
-This will start the React app on http://localhost:5173 (or similar).
+cd ../devConn-frontend
+npm install
+npm run dev
 
 ```
 
+This will start the React app on http://localhost:5173 (or similar).
+
+---
+
 📬 Contact
+
 Feel free to open an issue or submit a pull request if you have ideas or improvements.
 
 Built with ❤️ using Node.js, React and MongoDB
