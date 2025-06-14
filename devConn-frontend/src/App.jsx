@@ -3,6 +3,7 @@ import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile"
 import Connections from "./components/Connections";
+import Premium from "./components/Premium";
 import Requests from "./components/Requests";
 import Chat from "./components/Chat";
 import Feed from "./components/Feed";
@@ -23,6 +24,7 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
               <Route path="/chat/:targetUserId" element={<Chat />} />
+              <Route path="/premium" element={<Premium />} />
             </Route>
           </Routes>
         </BrowserRouter>
