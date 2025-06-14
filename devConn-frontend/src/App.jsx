@@ -3,8 +3,8 @@ import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile"
 import Connections from "./components/Connections";
-import Premium from "./components/Premium";
 import Requests from "./components/Requests";
+import Premium from "./components/Premium";
 import Chat from "./components/Chat";
 import Feed from "./components/Feed";
 import { Provider } from "react-redux";
