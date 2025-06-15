@@ -1,9 +1,13 @@
 import React from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { BASE_URL } from '../utils/constants';
 
 const plans = [
   {
     name: 'Silver Membership',
+    type: 'silver',
     features: [
       'Send up to 50 connection requests daily',
       'Chat with matched users',
@@ -15,6 +19,7 @@ const plans = [
   },
   {
     name: 'Gold Membership',
+    type: 'gold',
     features: [
       'Send up to 200 connection requests daily',
       'Unlimited chat access',
@@ -27,6 +32,44 @@ const plans = [
 ];
 
 const Premium = () => {
+  const user = useSelector((store) => store.user);
+
+  const handleBuyClick = async (type) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + '/payment/create-order',
+        { membershipType: type },
+        { withCredentials: true }
+      );
+
+      console.log('Order created:', res.data);
+
+      const { amount, keyId, currency, orderId } = res.data;
+
+      const options = {
+        key: keyId,
+        amount,
+        currency,
+        name: 'DevConn',
+        description: 'Connect to other developer',
+        order_id: orderId,
+        prefill: {
+          name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+          email: user.email || '',
+          contact: user.phone || '9999999999',
+        },
+        theme: {
+          color: '#F37254',
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error('Error creating order:', error.response?.data || error.message);
+    }
+  };
+
   return (
     <div className="p-6 md:p-10">
       <h2 className="text-4xl font-bold text-center mb-10">Choose Your Membership</h2>
@@ -49,7 +92,10 @@ const Premium = () => {
               ))}
             </ul>
 
-            <button className={`btn w-full ${plan.buttonStyle}`}>
+            <button
+              onClick={() => handleBuyClick(plan.type)}
+              className={`btn w-full ${plan.buttonStyle}`}
+            >
               {plan.buttonLabel}
             </button>
           </div>

@@ -1,0 +1,16 @@
+{
+  "event": "payment.captured",
+  "payload": {
+    "payment": {
+      "entity": {
+        "id": "pay_ABC123XYZ",
+        "entity": "payment",
+        "amount": 50000,
+        "currency": "INR",
+        "status": "captured",
+        "order_id": "order_9A33XWu170gUtm",
+        "created_at": 1612300000
+      }
+    }
+  }
+}

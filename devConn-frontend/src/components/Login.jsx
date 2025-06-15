@@ -38,7 +38,7 @@ const Login = () => {
       let res;
 
       if (isSignupForm) {
-        res = await axios.post(BASE_URL + "/signup", {
+        res = await axios.post(BASE_URL + "/auth/signup", {
           firstName,
           lastName,
           age,
@@ -54,7 +54,7 @@ const Login = () => {
         setConfirmPassword("");
       } else {
         res = await axios.post(
-          BASE_URL + "/login",
+          BASE_URL + "/auth/login",
           { emailId, password },
           { withCredentials: true }
         );

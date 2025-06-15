@@ -13,23 +13,33 @@ const EditProfile = ({ user }) => {
     const [gender, setGender] = useState(user.gender);
     const [age, setAge] = useState(user.age);
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const saveProfile = async () => {
+        setError("");
+        setSuccess("");
+        setLoading(true);
         try {
-            const res = await axios.patch(BASE_URL + "/profile/edit", {
-                firstName,
-                lastName,
-                photoUrl,
-                age,
-                gender,
-            }, { withCredentials: true }
+            const res = await axios.patch(
+                BASE_URL + "/profile/edit",
+                {
+                    firstName,
+                    lastName,
+                    photoUrl,
+                    age: Number(age),
+                    gender,
+                },
+                { withCredentials: true }
             );
             dispatch(addUser(res?.data?.data));
+            setSuccess("Profile updated successfully! 🎉");
         } catch (err) {
-            setError(err.message);
+            setError(err.response?.data?.message || err.message || "Failed to update profile");
+        } finally {
+            setLoading(false);
         }
-    }
-
+    };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-base-200">
@@ -38,12 +48,18 @@ const EditProfile = ({ user }) => {
                     <h2 className="text-center text-2xl font-semibold mb-6">Edit Profile</h2>
 
                     {error && (
-                        <div className="text-red-500 mb-4">
-                            <strong>Error: </strong>{error}
+                        <div className="text-red-600 font-semibold mb-4">
+                            <strong>Error: </strong> {error}
                         </div>
                     )}
 
-                    <form className="space-y-4">
+                    {success && (
+                        <div className="text-green-600 font-semibold mb-4">
+                            {success}
+                        </div>
+                    )}
+
+                    <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); saveProfile(); }}>
                         <div className="flex justify-center">
                             <label className="cursor-pointer">
                                 <img
@@ -77,7 +93,7 @@ const EditProfile = ({ user }) => {
                             onChange={(e) => setLastName(e.target.value)}
                         />
                         <input
-                            type="text"
+                            type="number"
                             value={age}
                             placeholder="Age"
                             className="input input-bordered w-full rounded-lg"
@@ -90,8 +106,13 @@ const EditProfile = ({ user }) => {
                             className="input input-bordered w-full rounded-lg"
                             onChange={(e) => setGender(e.target.value)}
                         />
-                        <button type="submit" className="btn btn-primary w-full rounded-lg" onClick={saveProfile}>
-                            Update
+
+                        <button
+                            type="submit"
+                            className={`btn btn-primary w-full rounded-lg ${loading ? "loading" : ""}`}
+                            disabled={loading}
+                        >
+                            {loading ? "Updating..." : "Update"}
                         </button>
                     </form>
                 </div>

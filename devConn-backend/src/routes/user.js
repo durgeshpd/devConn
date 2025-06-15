@@ -5,7 +5,7 @@ const { userAuth } = require('../middlewares/auth');
 const ConnectionRequest = require("../models/connectionRequest")
 const User = require("../models/user");
 
-userRouter.get("/user/requests/received", userAuth, async (req, res) => {
+userRouter.get("/requests/received", userAuth, async (req, res) => {
     try {
         const loggedInUser = req.user;
 
@@ -24,7 +24,7 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
     }
 });
 
-userRouter.get("/user/connections", userAuth, async (req, res) => {
+userRouter.get("/connections", userAuth, async (req, res) => {
     try {
         const loggedInUser = req.user;
         console.log("Fetching connections for:", loggedInUser._id);

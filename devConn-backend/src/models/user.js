@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true,
         validate(value) {
-            if(!validator.isEmail(value)) {
+            if (!validator.isEmail(value)) {
                 throw new Error("Invalid email address: " + value);
             }
         }
@@ -34,9 +34,16 @@ const userSchema = new mongoose.Schema({
     gender: {
         type: String,
         enum: {
-            values: ["Male", "Female", "Other"],
+            values: ["Male","Female","Other"],
             message: `{VALUE} is not a valid gender type`,
         },
+    },
+    isPremium: {
+        type: Boolean,
+        default: false,
+    },
+    membershipType:{
+        type: String,
     },
     photoUrl: {
         type: String,
@@ -48,7 +55,7 @@ userSchema.methods.getJWT = async function () {
 
     const user = this;
 
-    const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {expiresIn: "7d",});
+    const token = await jwt.sign({ _id: user._id },process.env.JWT_SECRET,{ expiresIn: "7d",});
     return token;
 }
 
@@ -56,11 +63,11 @@ userSchema.methods.validatePassword = async function (passwordInputByUser) {
     const user = this;
     const passwordHash = user.password;
 
-    const isPasswordValid = await bcrypt.compare(passwordInputByUser, passwordHash);
+    const isPasswordValid = await bcrypt.compare(passwordInputByUser,passwordHash);
 
     return isPasswordValid;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User",userSchema);
 
 module.exports = User;
